@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo · Turnio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a1535;
+            --pink: #ec4899;
+            --pink-soft: #fce7f3;
+            --green: #10b981;
+            --amber: #f59e0b;
+            --bg: #fafafa;
+            --text: #1a1a2e;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .demo-header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .demo-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 1.05em;
+        }
+
+        .demo-brand-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pink);
+        }
+
+        .demo-tag {
+            background: var(--pink-soft);
+            color: var(--pink);
+            font-size: 0.72em;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            background: var(--bg);
+            padding: 4px;
+            border-radius: 10px;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.86em;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: var(--navy);
+            color: white;
+        }
+
+        .demo-reset {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.78em;
+            padding: 7px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .demo-reset:hover { border-color: var(--pink); color: var(--pink); }
+
+        .view {
+            display: none;
+            padding: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .view.active { display: block; }
+
+        .view-admin { max-width: 1100px; }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 22px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            font-size: 1em;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 14px;
+            border-left: 3px solid var(--pink);
+            padding-left: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.92em;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--pink);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .slots {
+            display: grid;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .slot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 14px;
+            background: #f8f9ff;
+            border: 1.5px solid #e9e8ff;
+            border-radius: 10px;
+            font-size: 0.88em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .slot:hover {
+            border-color: var(--pink);
+            transform: translateY(-1px);
+        }
+
+        .slot.selected {
+            background: var(--pink);
+            color: white;
+            border-color: var(--pink);
+        }
+
+        .slot .hora {
+            background: rgba(10, 21, 53, 0.1);
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.88em;
+        }
+
+        .slot.selected .hora {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.92em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--pink);
+            color: white;
+            width: 100%;
+            margin-top: 6px;
+            box-shadow: 0 6px 18px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(236, 72, 153, 0.4); }
+
+        .alert {
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 0.88em;
+            display: none;
+        }
+
+        .alert.ok { background: #d1fae5; color: #065f46; }
+        .alert.bad { background: #fee2e2; color: #991b1b; }
+
+        .alert.show { display: block; }
+
+        .confirmacion {
+            background: linear-gradient(135deg, #fdf2f8, #faf5ff);
+            border: 2px solid var(--pink);
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+            display: none;
+        }
+
+        .confirmacion.show { display: block; }
+
+        .confirmacion h2 {
+            color: var(--pink);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .confirmacion p { color: var(--text); margin: 4px 0; font-size: 0.92em; }
+        .confirmacion strong { color: var(--navy); }
+
+        /* admin */
+        .admin-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+        }
+
+        .admin-empty .icono { font-size: 3em; opacity: 0.3; margin-bottom: 10px; }
+
+        .turnos-tabla {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.84em;
+            min-width: 760px;
+        }
+
+        thead th {
+            background: var(--navy);
+            color: white;
+            text-align: left;
+            padding: 11px 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            font-size: 0.86em;
+        }
+
+        tbody td {
+            padding: 11px 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: #faf9ff; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.74em;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge.ok { background: #d1fae5; color: #065f46; }
+        .badge.no { background: #fef3c7; color: #92400e; }
+        .badge.confirmado { background: #e0e7ff; color: #3730a3; }
+
+        .toggle-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-start;
+        }
+
+        .toggle-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.72em;
+            color: var(--muted);
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-card .num {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1;
+        }
+
+        .stat-card .lbl {
+            font-size: 0.78em;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        .hint {
+            background: #fffbeb;
+            border-left: 3px solid var(--amber);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.84em;
+            color: #7c5d10;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .demo-header { padding: 12px 14px; }
+            .demo-brand { font-size: 0.95em; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .view { padding: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="demo-header">
+        <div class="demo-brand">
+            <span class="demo-brand-dot"></span>
+            Turnio
+            <span class="demo-tag">DEMO</span>
+        </div>
+        <div class="tabs">
+            <button class="tab active" data-view="paciente">👤 Vista paciente</button>
+            <button class="tab" data-view="admin">⚙️ Vista admin</button>
+        </div>
+        <button class="demo-reset" onclick="resetearDemo()">↻ Resetear demo</button>
+    </header>
+
+    <!-- ============== VISTA PACIENTE ============== -->
+    <div id="view-paciente" class="view active">
+        <div class="card" id="formCard">
+            <h3>Reservá tu turno</h3>
+
+            <div class="hint">
+                💡 Esto es una demo. Probá reservar un turno y luego cambiá a "Vista admin" para verlo gestionado.
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <label>Nombre *</label>
+                    <input type="text" id="p_nombre" placeholder="Nombre">
+                </div>
+                <div>
+                    <label>Apellido *</label>
+                    <input type="text" id="p_apellido" placeholder="Apellido">
+                </div>
+            </div>
+
+            <label>Teléfono *</label>
+            <input type="tel" id="p_telefono" placeholder="Ej: 3492312156">
+
+            <label>Obra social *</label>
+            <select id="p_obraSocial">
+                <option value="">Seleccioná tu obra social</option>
+                <option value="Particular">Particular</option>
+                <option value="OSDE">OSDE</option>
+                <option value="Swiss Medical">Swiss Medical</option>
+                <option value="Galeno">Galeno</option>
+                <option value="Sancor Salud">Sancor Salud</option>
+            </select>
+
+            <label>Tipo de práctica *</label>
+            <select id="p_estudio">
+                <option value="">Seleccioná una práctica</option>
+                <option value="Consulta general|15">Consulta general (15 min)</option>
+                <option value="Control anual|30">Control anual (30 min)</option>
+                <option value="Estudio diagnóstico|30">Estudio diagnóstico (30 min)</option>
+                <option value="Primera consulta|45">Primera consulta (45 min)</option>
+            </select>
+
+            <label>Elegí el próximo turno disponible *</label>
+            <div class="slots" id="p_slots"></div>
+
+            <div id="p_alert" class="alert"></div>
+
+            <button class="btn btn-primary" onclick="reservarDemo()">Confirmar reserva</button>
+        </div>
+
+        <div class="confirmacion card" id="confirmacionCard">
+            <h2>✅ ¡Turno reservado!</h2>
+            <p id="confirmaTexto"></p>
+            <button class="btn btn-primary" onclick="nuevaReserva()" style="margin-top:14px;">Reservar otro turno</button>
+        </div>
+    </div>
+
+    <!-- ============== VISTA ADMIN ============== -->
+    <div id="view-admin" class="view view-admin">
+        <div class="hint">
+            💡 Acá tu secretaria gestiona los turnos. Cada botón "Marcar Sí/No" actualiza el estado en tiempo real.
+        </div>
+
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div id="adminContent"></div>
+    </div>
+
+    <script>
+        // ============== STATE EN LOCALSTORAGE ==============
+        const STORAGE_KEY = 'turnio_demo_turnos';
+
+        function leerTurnos() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+            catch { return []; }
+        }
+
+        function guardarTurnos(arr) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        }
+
+        function resetearDemo() {
+            if (!confirm('¿Borrar todos los turnos de la demo?')) return;
+            localStorage.removeItem(STORAGE_KEY);
+            renderSlots();
+            renderAdmin();
+            nuevaReserva();
+            mostrarAlerta('Demo reseteada', 'ok');
+        }
+
+        // ============== TABS ==============
+        document.querySelectorAll('.tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const v = btn.dataset.view;
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+                document.getElementById('view-' + v).classList.add('active');
+                if (v === 'admin') renderAdmin();
+                if (v === 'paciente') renderSlots();
+            });
+        });
+
+        // ============== PACIENTE: SLOTS ==============
+        // Generamos turnos teóricos para los próximos 14 días, lunes a viernes,
+        // de 9:00 a 12:00 en bloques de 15 minutos.
+        function generarSlotsTeoricos() {
+            const slots = [];
+            const ahora = new Date();
+            ahora.setHours(0, 0, 0, 0);
+            for (let offset = 1; offset <= 14; offset++) {
+                const fecha = new Date(ahora);
+                fecha.setDate(fecha.getDate() + offset);
+                const dow = fecha.getDay();
+                if (dow === 0 || dow === 6) continue; // sin sábados ni domingos
+                const fechaISO = fecha.toISOString().split('T')[0];
+                const fechaStr = fecha.toLocaleDateString('es-AR', { weekday: 'short', day: '2-digit', month: '2-digit' });
+                for (let h = 9; h < 12; h += 0.25) {
+                    const hh = Math.floor(h).toString().padStart(2, '0');
+                    const mm = Math.round((h % 1) * 60).toString().padStart(2, '0');
+                    slots.push({ fecha: fechaISO, hora: `${hh}:${mm}`, display: fechaStr });
+                }
+            }
+            return slots;
+        }
+
+        function obtenerOcupados() {
+            const ocupados = new Set();
+            leerTurnos().forEach(t => {
+                const sub = Math.max(1, Math.ceil((t.duracion || 15) / 15));
+                const [h, m] = t.hora.split(':').map(Number);
+                let total = h * 60 + m;
+                for (let i = 0; i < sub; i++) {
+                    const hh = Math.floor(total / 60).toString().padStart(2, '0');
+                    const mm = (total % 60).toString().padStart(2, '0');
+                    ocupados.add(`${t.fecha}|${hh}:${mm}`);
+                    total += 15;
+                }
+            });
+            return ocupados;
+        }
+
+        function calcularDuracionSeleccionada() {
+            const v = document.getElementById('p_estudio').value;
+            if (!v) return 15;
+            const partes = v.split('|');
+            return parseInt(partes[1], 10) || 15;
+        }
+
+        function renderSlots() {
+            const cont = document.getElementById('p_slots');
+            cont.innerHTML = '';
+            const teoricos = generarSlotsTeoricos();
+            const ocupados = obtenerOcupados();
+            const duracion = calcularDuracionSeleccionada();
+            const sub = Math.max(1, Math.ceil(duracion / 15));
+
+            // Agrupar por fecha y elegir el primer slot libre que entre completo
+            const porFecha = new Map();
+            teoricos.forEach(s => {
+                if (!porFecha.has(s.fecha)) porFecha.set(s.fecha, []);
+                porFecha.get(s.fecha).push(s);
+            });
+
+            const opciones = [];
+            porFecha.forEach(slotsDia => {
+                for (let i = 0; i + sub <= slotsDia.length; i++) {
+                    let entra = true;
+                    for (let j = 0; j < sub; j++) {
+                        if (ocupados.has(`${slotsDia[i+j].fecha}|${slotsDia[i+j].hora}`)) {
+                            entra = false; break;
+                        }
+                    }
+                    if (entra) { opciones.push(slotsDia[i]); break; }
+                }
+            });
+
+            if (!opciones.length) {
+                cont.innerHTML = '<div style="text-align:center;padding:18px;color:var(--muted);font-size:0.88em;">📅 Sin turnos disponibles. Reseteá la demo para volver a empezar.</div>';
+                return;
+            }
+
+            opciones.slice(0, 8).forEach(s => {
+                const el = document.createElement('div');
+                el.className = 'slot';
+                el.dataset.fecha = s.fecha;
+                el.dataset.hora = s.hora;
+                el.dataset.display = s.display;
+                const sufijo = duracion > 15 ? ` · ${duracion} min` : '';
+                el.innerHTML = `<span>${s.display}</span><span class="hora">${s.hora}${sufijo}</span>`;
+                el.addEventListener('click', () => {
+                    document.querySelectorAll('.slot').forEach(o => o.classList.remove('selected'));
+                    el.classList.add('selected');
+                });
+                cont.appendChild(el);
+            });
+        }
+
+        document.getElementById('p_estudio').addEventListener('change', renderSlots);
+
+        // ============== PACIENTE: RESERVAR ==============
+        function mostrarAlerta(msg, tipo) {
+            const el = document.getElementById('p_alert');
+            el.textContent = msg;
+            el.className = 'alert show ' + tipo;
+            setTimeout(() => el.classList.remove('show'), 3500);
+        }
+
+        function reservarDemo() {
+            const nombre = document.getElementById('p_nombre').value.trim();
+            const apellido = document.getElementById('p_apellido').value.trim();
+            const telefono = document.getElementById('p_telefono').value.trim();
+            const obraSocial = document.getElementById('p_obraSocial').value;
+            const estudio = document.getElementById('p_estudio').value;
+            const slotSel = document.querySelector('.slot.selected');
+
+            if (!nombre || !apellido) return mostrarAlerta('Falta nombre y/o apellido', 'bad');
+            if (!telefono) return mostrarAlerta('Falta el teléfono', 'bad');
+            if (!obraSocial) return mostrarAlerta('Seleccioná tu obra social', 'bad');
+            if (!estudio) return mostrarAlerta('Seleccioná una práctica', 'bad');
+            if (!slotSel) return mostrarAlerta('Elegí un turno disponible', 'bad');
+
+            const [estudioNombre, dur] = estudio.split('|');
+            const turno = {
+                id: Date.now(),
+                numero: 'TUR-' + String(Date.now()).slice(-5),
+                nombre, apellido, telefono, obraSocial,
+                estudio: estudioNombre,
+                duracion: parseInt(dur, 10) || 15,
+                fecha: slotSel.dataset.fecha,
+                hora: slotSel.dataset.hora,
+                display: slotSel.dataset.display,
+                recordatorio: 0,
+                autorizado: 0,
+                pagado: 0
+            };
+
+            const turnos = leerTurnos();
+            turnos.push(turno);
+            guardarTurnos(turnos);
+
+            document.getElementById('formCard').style.display = 'none';
+            const conf = document.getElementById('confirmacionCard');
+            document.getElementById('confirmaTexto').innerHTML =
+                `<strong>${nombre} ${apellido}</strong><br>` +
+                `${estudioNombre} · ${turno.duracion} min<br>` +
+                `${slotSel.dataset.display} a las ${slotSel.dataset.hora}<br>` +
+                `Turno N° <strong>${turno.numero}</strong><br><br>` +
+                `<small style="color:var(--muted);">👉 Cambiá a <strong>Vista admin</strong> para verlo en el panel.</small>`;
+            conf.classList.add('show');
+        }
+
+        function nuevaReserva() {
+            document.getElementById('confirmacionCard').classList.remove('show');
+            document.getElementById('formCard').style.display = 'block';
+            ['p_nombre','p_apellido','p_telefono'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('p_obraSocial').value = '';
+            document.getElementById('p_estudio').value = '';
+            renderSlots();
+        }
+
+        // ============== ADMIN ==============
+        function renderAdmin() {
+            const turnos = leerTurnos();
+            const stats = document.getElementById('statsGrid');
+            const cont = document.getElementById('adminContent');
+
+            const total = turnos.length;
+            const recordatorios = turnos.filter(t => t.recordatorio).length;
+            const autorizados = turnos.filter(t => t.autorizado).length;
+            const pagados = turnos.filter(t => t.pagado).length;
+
+            stats.innerHTML = `
+                <div class="stat-card"><div class="num">${total}</div><div class="lbl">Turnos totales</div></div>
+                <div class="stat-card"><div class="num" style="color:var(--pink);">${recordatorios}</div><div class="lbl">Recordatorios enviados</div></div>
+                <div class="stat-card"><div class="num" style="color:var(--amber);">${autorizados}</div><div class="lbl">Estudios autorizados</div></div>
+                <div class="stat-card"><div class="num" style="color:var(--green);">${pagados}</div><div class="lbl">Pagos recibidos</div></div>
+            `;
+
+            if (!total) {
+                cont.innerHTML = `
+                    <div class="admin-empty">
+                        <div class="icono">📭</div>
+                        <p>Todavía no hay turnos cargados.<br>
+                        Cambiá a <strong>Vista paciente</strong> y reservá uno para verlo acá.</p>
+                    </div>`;
+                return;
+            }
+
+            // Ordenar por fecha+hora ascendente
+            turnos.sort((a, b) => (a.fecha + a.hora).localeCompare(b.fecha + b.hora));
+
+            const filas = turnos.map(t => `
+                <tr>
+                    <td><strong>${t.numero}</strong></td>
+                    <td>${t.nombre} ${t.apellido}<div style="font-size:0.8em;color:var(--muted);">📱 ${t.telefono}</div></td>
+                    <td>${t.fecha}<div style="font-size:0.8em;color:var(--muted);">${t.hora} · ${t.duracion}m</div></td>
+                    <td>${t.estudio}</td>
+                    <td>${t.obraSocial}</td>
+                    <td><span class="badge confirmado">Confirmado</span></td>
+                    ${celdaToggle(t.id, 'recordatorio', t.recordatorio)}
+                    ${celdaToggle(t.id, 'autorizado', t.autorizado)}
+                    ${celdaToggle(t.id, 'pagado', t.pagado)}
+                    <td><button class="toggle-btn" style="color:#c62828;" onclick="borrarTurno(${t.id})">🗑 Borrar</button></td>
+                </tr>
+            `).join('');
+
+            cont.innerHTML = `
+                <div class="turnos-tabla">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N°</th><th>Paciente</th><th>Fecha / Hora</th>
+                                <th>Práctica</th><th>Obra Social</th><th>Estado</th>
+                                <th>Recordatorio</th><th>Autorizado</th><th>Pago</th><th></th>
+                            </tr>
+                        </thead>
+                        <tbody>${filas}</tbody>
+                    </table>
+                </div>`;
+        }
+
+        function celdaToggle(id, campo, valor) {
+            const flag = !!valor;
+            const badge = flag
+                ? '<span class="badge ok">Sí</span>'
+                : '<span class="badge no">No</span>';
+            const txt = flag ? '↩ Marcar No' : '✓ Marcar Sí';
+            return `<td><div class="toggle-cell">${badge}<button class="toggle-btn" onclick="toggleCampo(${id},'${campo}')">${txt}</button></div></td>`;
+        }
+
+        function toggleCampo(id, campo) {
+            const turnos = leerTurnos();
+            const t = turnos.find(x => x.id === id);
+            if (!t) return;
+            t[campo] = t[campo] ? 0 : 1;
+            guardarTurnos(turnos);
+            renderAdmin();
+        }
+
+        function borrarTurno(id) {
+            if (!confirm('¿Borrar este turno de la demo?')) return;
+            const turnos = leerTurnos().filter(x => x.id !== id);
+            guardarTurnos(turnos);
+            renderAdmin();
+        }
+
+        // ============== INIT ==============
+        renderSlots();
+    </script>
+
+</body>
+</html>
