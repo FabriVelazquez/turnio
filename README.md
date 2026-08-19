@@ -1,6 +1,6 @@
 # Turnio
 
-Landing comercial + demo del sistema de turnos **Turnio**: sistema de turnos online a medida para profesionales de la salud.
+Landing comercial + demo del sistema de turnos **Turnio**: sistema de turnos y reservas online a medida para cualquier negocio (consultorios, canchas, peluquerías, spas, academias, etc.).
 
 ## Estructura
 
@@ -63,8 +63,8 @@ Al ser estático, hostea gratis en cualquiera de estas plataformas. **Recomendad
 
 ## Antes de publicar — checklist
 
-- [ ] Cambiar el link `https://ROMI-URL-DE-PRODUCCION.com` en `index.html` por la URL real del sistema de Romi (línea ~1199, está marcado con `<!-- TODO -->`).
-- [ ] Verificar que el WhatsApp `3492 276388` y el mail `gfabrivelazquez@gmail.com` estén correctos (aparecen en varios lugares).
+- [ ] Verificar que el link a la demo real de la Dra. Gigón siga vivo (`index.html`, sección `#demo`, búsqueda: `drarominagigon.com`).
+- [ ] Verificar que el WhatsApp `3492 276388` esté correcto (aparece en varios lugares). Ya no se muestra ningún mail en la landing.
 - [ ] Si querés cambiar el nombre del producto, hacer find-and-replace de `Turnio` en ambos archivos.
 - [ ] Opcionalmente reemplazar el dominio placeholder `turnio.app/demo` que se muestra en la barra estilo navegador de la demo (en `index.html`, búsqueda: `turnio.app/demo`).
 
@@ -76,12 +76,12 @@ Al ser estático, hostea gratis en cualquiera de estas plataformas. **Recomendad
 | Color de marca (rosa) | `index.html` → `:root { --pink: #ec4899 }` |
 | Color navy | `index.html` → `:root { --navy: #0a1535 }` |
 | Tipografía | Link de Google Fonts al inicio + `font-family` |
-| Precio | Sección `<section id="precio">` |
-| Comparativa vs Docturno | Sección `<section id="comparativa">` |
-| Features paciente / admin | Secciones `<section id="funciones">` y `.features-admin` |
-| Testimonio Dra. Gigón | Sección `<section id="caso">` |
-| WhatsApp y mail | Buscar `wa.me/543492276388` y `gfabrivelazquez@gmail.com` |
+| Precios (plan base / personalización) | Sección `<section id="precio">`, clases `.plan-card` |
+| Rubros a los que apunta | Sección `.rubros` (chips arriba del todo) |
+| Features cliente / admin | Secciones `<section id="funciones">` y `.features-admin` |
+| Caso real Dra. Gigón | Sección `<section id="caso">` |
+| WhatsApp | Buscar `wa.me/543492276388` |
 
 ## Contacto
 
-Fabri Velázquez — WhatsApp 3492 276388 — gfabrivelazquez@gmail.com
+Fabri Velázquez — WhatsApp 3492 276388

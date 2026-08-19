@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turnio · Sistema de turnos a medida para profesionales de la salud</title>
-    <meta name="description" content="Sistema de turnos online 100% personalizable para médicos, kinesiólogos, ginecólogos y profesionales de la salud. Tu marca, tus reglas, sin app. $20.999/mes.">
+    <title>Turnio · Sistema de turnos y reservas online para cualquier negocio</title>
+    <meta name="description" content="Sistema de turnos online 100% personalizable para consultorios, canchas, peluquerías, spas y cualquier negocio que trabaje con reservas. Tu marca, tus reglas, sin app. Desde $44.999/mes.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -318,6 +318,41 @@
             border-bottom: 1px solid #f3f4f8;
         }
 
+        /* ============== RUBROS ============== */
+        .rubros {
+            padding: 40px 0;
+            background: var(--bg-alt);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rubros-label {
+            text-align: center;
+            font-size: 0.82em;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 18px;
+        }
+
+        .rubros-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .chip {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 9px 16px;
+            border-radius: 999px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
         /* ============== SECCIONES GENÉRICAS ============== */
         section {
             padding: 90px 0;
@@ -561,58 +596,17 @@
         .caso-author-name { font-weight: 700; color: var(--navy); font-size: 0.92em; }
         .caso-author-rol { color: var(--muted); font-size: 0.82em; }
 
-        /* ============== COMPARATIVA ============== */
-        .comparativa table {
-            width: 100%;
-            border-collapse: collapse;
+        .caso-nota {
+            margin-top: 40px;
             background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 14px 40px rgba(10, 21, 53, 0.07);
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            padding: 20px 24px;
+            font-size: 0.94em;
+            color: var(--muted);
         }
 
-        .comparativa th, .comparativa td {
-            padding: 16px 20px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .comparativa thead th {
-            background: var(--navy);
-            color: white;
-            font-weight: 600;
-            font-size: 0.92em;
-        }
-
-        .comparativa thead th.highlight {
-            background: var(--pink);
-        }
-
-        .comparativa tbody tr:last-child td { border-bottom: none; }
-
-        .comparativa tbody td:first-child {
-            font-weight: 600;
-            color: var(--navy);
-        }
-
-        .comparativa td.cell-yes::before {
-            content: '✓';
-            color: var(--green);
-            font-weight: 700;
-            margin-right: 6px;
-        }
-
-        .comparativa td.cell-no::before {
-            content: '✕';
-            color: #ef4444;
-            font-weight: 700;
-            margin-right: 6px;
-        }
-
-        .comparativa td.cell-yes.highlight, .comparativa td.cell-no.highlight {
-            background: #fdf2f8;
-            font-weight: 600;
-        }
+        .caso-nota strong { color: var(--navy); }
 
         /* ============== DEMO ============== */
         .demo {
@@ -684,21 +678,47 @@
             background: white;
         }
 
-        .precio-card {
-            background: linear-gradient(135deg, var(--navy) 0%, #1a2a5e 100%);
-            border-radius: 24px;
-            padding: 48px;
-            color: white;
+        .plans-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: center;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .plan-card {
+            background: linear-gradient(135deg, var(--navy) 0%, #1a2a5e 100%);
+            border-radius: 24px;
+            padding: 40px;
+            color: white;
             box-shadow: 0 24px 60px rgba(10, 21, 53, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .plan-card.destacado {
+            background: linear-gradient(135deg, #2a1547 0%, var(--navy) 60%, #1a2a5e 100%);
+            border: 2px solid var(--pink);
+        }
+
+        .plan-ribbon {
+            position: absolute;
+            top: -14px;
+            right: 32px;
+            background: var(--pink);
+            color: white;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 999px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            box-shadow: 0 6px 16px rgba(236, 72, 153, 0.4);
         }
 
         .precio-badge {
             display: inline-block;
-            background: var(--pink);
+            background: rgba(255, 255, 255, 0.12);
             color: white;
             font-size: 0.78em;
             font-weight: 700;
@@ -709,46 +729,50 @@
             text-transform: uppercase;
         }
 
-        .precio-card h3 {
-            font-size: 2em;
+        .plan-card.destacado .precio-badge {
+            background: var(--pink);
+        }
+
+        .plan-card h3 {
+            font-size: 1.5em;
             font-weight: 800;
             margin-bottom: 8px;
         }
 
+        .plan-card .plan-desc {
+            color: #c7cbe0;
+            font-size: 0.94em;
+            margin-bottom: 20px;
+        }
+
         .precio-amount {
-            font-size: 3.6em;
+            font-size: 2.8em;
             font-weight: 800;
             line-height: 1;
-            margin: 18px 0 6px;
+            margin: 4px 0 20px;
         }
 
         .precio-amount small {
-            font-size: 0.32em;
+            font-size: 0.34em;
             font-weight: 500;
             color: #c7cbe0;
             display: inline-block;
             margin-left: 8px;
         }
 
-        .precio-vs {
-            color: #c7cbe0;
-            font-size: 0.95em;
-            margin-bottom: 26px;
-        }
-
-        .precio-vs s { color: #ef4444; }
-
         .precio-incluye {
             list-style: none;
+            margin-bottom: 26px;
+            flex-grow: 1;
         }
 
         .precio-incluye li {
-            padding: 10px 0;
+            padding: 9px 0;
             color: white;
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            font-size: 0.96em;
+            font-size: 0.92em;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -760,6 +784,8 @@
             font-weight: 800;
             flex-shrink: 0;
         }
+
+        .plan-card .btn { width: 100%; }
 
         .extras {
             background: var(--bg-alt);
@@ -851,19 +877,16 @@
             .compare-grid { grid-template-columns: 1fr; }
             .features-grid { grid-template-columns: 1fr; }
             .caso-grid { grid-template-columns: 1fr; gap: 32px; }
-            .precio-card { grid-template-columns: 1fr; padding: 32px; gap: 28px; }
+            .plans-grid { grid-template-columns: 1fr; }
 
             .nav-links { display: none; }
 
             .contacto h2 { font-size: 1.8em; }
-
-            .comparativa { overflow-x: auto; }
-            .comparativa table { min-width: 600px; }
         }
 
         @media (max-width: 560px) {
             .hero h1 { font-size: 2em; }
-            .precio-amount { font-size: 2.6em; }
+            .precio-amount { font-size: 2.2em; }
             .demo-url { display: none; }
         }
     </style>
@@ -877,7 +900,6 @@
             <div class="nav-links">
                 <a href="#funciones">Funciones</a>
                 <a href="#caso">Caso real</a>
-                <a href="#comparativa">vs Docturno</a>
                 <a href="#demo">Demo</a>
                 <a href="#precio">Precio</a>
                 <a href="https://wa.me/543492276388" class="btn btn-dark" target="_blank" style="padding:9px 18px;font-size:0.88em;">Hablemos</a>
@@ -890,16 +912,16 @@
         <div class="container hero-grid">
             <div>
                 <div class="hero-eyebrow">✨ Sistema de turnos a medida</div>
-                <h1>El sistema de turnos que se adapta a <span>tu consultorio</span>, no al revés.</h1>
+                <h1>El sistema de turnos que se adapta a <span>tu negocio</span>, no al revés.</h1>
                 <p class="lead">
-                    Reservas online sin app, con tu marca, tus reglas de agenda y un panel pensado para que vos y tu secretaria trabajen tranquilas. Implementación y personalización completa incluidas.
+                    Reservas online sin app, con tu marca, tus reglas de agenda y un panel pensado para que vos y tu equipo trabajen tranquilos. Para consultorios, canchas, peluquerías y cualquier negocio que viva de sus turnos.
                 </p>
                 <div class="hero-ctas">
                     <a href="#demo" class="btn btn-primary">▶ Probar la demo</a>
                     <a href="https://wa.me/543492276388?text=Hola%20Fabri,%20me%20interesa%20Turnio" class="btn btn-wa" target="_blank">💬 Hablar por WhatsApp</a>
                 </div>
                 <div class="hero-trust">
-                    <span><strong>Sin app</strong> para el paciente</span>
+                    <span><strong>Sin app</strong> para tus clientes</span>
                     <span>•</span>
                     <span><strong>Tu marca</strong> al 100%</span>
                     <span>•</span>
@@ -907,7 +929,7 @@
                 </div>
             </div>
             <div class="hero-mockup">
-                <!-- Mock vista paciente -->
+                <!-- Mock vista cliente -->
                 <div class="mockup-card mock-paciente">
                     <div class="mock-title">Reservar turno</div>
                     <div class="mock-h">Elegí tu turno</div>
@@ -929,7 +951,7 @@
                     <div class="mock-title">Panel admin</div>
                     <table class="mock-table">
                         <thead>
-                            <tr><th>Paciente</th><th>Hora</th><th>Pago</th></tr>
+                            <tr><th>Cliente</th><th>Hora</th><th>Pago</th></tr>
                         </thead>
                         <tbody>
                             <tr><td>L. García</td><td>09:30</td><td><span class="mock-pill ok">Sí</span></td></tr>
@@ -942,12 +964,27 @@
         </div>
     </section>
 
+    <!-- ============== RUBROS ============== -->
+    <section class="rubros">
+        <div class="container">
+            <div class="rubros-label">Un mismo sistema, adaptado a tu rubro</div>
+            <div class="rubros-chips">
+                <span class="chip">🩺 Consultorios y profesionales de la salud</span>
+                <span class="chip">🎾 Canchas de pádel y tenis</span>
+                <span class="chip">💇 Peluquerías y barberías</span>
+                <span class="chip">💆 Spas y centros de estética</span>
+                <span class="chip">🧘 Academias, yoga y estudios</span>
+                <span class="chip">🔧 Talleres y servicios técnicos</span>
+            </div>
+        </div>
+    </section>
+
     <!-- ============== PROBLEMA vs SOLUCIÓN ============== -->
     <section class="problema">
         <div class="container">
             <div class="section-eyebrow">El problema</div>
-            <h2 class="section-title">Las secretarias hacen malabares y los sistemas genéricos no entienden tu rubro.</h2>
-            <p class="section-lead">Llamadas constantes, WhatsApps cruzados, planillas que se pisan, dobles reservas, pacientes enojados. Y los sistemas existentes son rígidos, caros y no llevan tu marca.</p>
+            <h2 class="section-title">Tu equipo hace malabares y los sistemas genéricos no entienden cómo trabajás.</h2>
+            <p class="section-lead">Llamadas constantes, WhatsApps cruzados, planillas que se pisan, dobles reservas, clientes enojados. Y los sistemas que existen son rígidos, caros y no llevan tu marca.</p>
 
             <div class="compare-grid">
                 <div class="compare-card bad">
@@ -956,58 +993,58 @@
                         <li>Turnos por teléfono y WhatsApp todo el día</li>
                         <li>Dobles reservas y huecos en la agenda</li>
                         <li>Planillas de Excel que se descontrolan</li>
-                        <li>Sistemas como Docturno cobran $30.250 y son iguales para todos</li>
+                        <li>Sistemas armados para cualquier rubro por igual</li>
                         <li>Tu marca queda escondida bajo el logo del software</li>
-                        <li>Cero personalización a las reglas de tu consultorio</li>
+                        <li>Cero personalización a las reglas de tu negocio</li>
                     </ul>
                 </div>
                 <div class="compare-card good">
                     <h3>✨ Con Turnio</h3>
                     <ul class="compare-list">
-                        <li>El paciente reserva online sin descargar nada</li>
+                        <li>El cliente reserva online sin descargar nada</li>
                         <li>Slots correlativos: imposible solapar o dejar huecos</li>
-                        <li>Panel claro para vos y tu secretaria</li>
-                        <li>$20.999/mes, todo incluido (un único plan)</li>
+                        <li>Panel claro para vos y tu equipo</li>
+                        <li>Desde $44.999/mes, con personalización si la necesitás</li>
                         <li>Tu logo, tus colores y tu tipografía</li>
-                        <li>Hecho a medida del rubro: gineco, kine, derma, lo que sea</li>
+                        <li>Hecho a medida de tu rubro: salud, deporte, estética, lo que sea</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============== FUNCIONES PACIENTE ============== -->
+    <!-- ============== FUNCIONES CLIENTE ============== -->
     <section id="funciones">
         <div class="container">
-            <div class="section-eyebrow">Para tus pacientes</div>
+            <div class="section-eyebrow">Para tus clientes</div>
             <h2 class="section-title">Reservar un turno toma 60 segundos. Y sin instalar nada.</h2>
-            <p class="section-lead">La experiencia del paciente es lo primero: claro, rápido y sin pasos al pedo.</p>
+            <p class="section-lead">La experiencia de quien reserva es lo primero: clara, rápida y sin pasos al pedo.</p>
 
             <div class="features-grid">
                 <div class="feature">
                     <div class="feature-icon">📅</div>
                     <h4>Próximo turno correlativo</h4>
-                    <p>Cada jornada muestra una sola opción: la primera hora libre. Imposible dejar huecos o pisarse con otro paciente.</p>
+                    <p>Cada jornada muestra una sola opción: la primera hora libre. Imposible dejar huecos o pisarse con otro cliente.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">⏱️</div>
-                    <h4>Duración por estudio</h4>
-                    <p>Cada práctica tiene su duración real. Un estudio de 30 minutos bloquea automáticamente los 30 minutos siguientes.</p>
+                    <h4>Duración por servicio</h4>
+                    <p>Cada servicio tiene su duración real: una consulta de 20 minutos, un turno de cancha de 90. El sistema bloquea justo lo que corresponde.</p>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">🏥</div>
-                    <h4>Multi-consultorio</h4>
-                    <p>Varias ubicaciones con días, horarios y reglas distintas. El paciente elige dónde quiere atenderse.</p>
+                    <div class="feature-icon">🏢</div>
+                    <h4>Multi-sede o multi-cancha</h4>
+                    <p>Varias ubicaciones, canchas o boxes con días, horarios y reglas distintas. El cliente elige dónde quiere reservar.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📎</div>
-                    <h4>Pedido médico adjunto</h4>
-                    <p>Sube el PDF/DOC en el mismo formulario. Vos lo ves desde el panel sin pedir nada por WhatsApp.</p>
+                    <h4>Adjuntos al reservar</h4>
+                    <p>Sube un archivo en el mismo formulario: pedido médico, comprobante o lo que tu negocio necesite. Vos lo ves desde el panel sin pedir nada por WhatsApp.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">💳</div>
                     <h4>Pago integrado</h4>
-                    <p>Mercado Pago + transferencia. Distinto monto según obra social o "particular". Adaptado a tu lógica.</p>
+                    <p>Mercado Pago + transferencia. Distinto monto según categoría, tipo de cliente o servicio. Adaptado a tu lógica de precios.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📧</div>
@@ -1017,17 +1054,17 @@
                 <div class="feature">
                     <div class="feature-icon">🔍</div>
                     <h4>Catálogo buscable</h4>
-                    <p>Obras sociales y prácticas con búsqueda en vivo. El paciente no se pierde aunque sean 200 opciones.</p>
+                    <p>Servicios, categorías o profesionales con búsqueda en vivo. El cliente no se pierde aunque sean 200 opciones.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📋</div>
-                    <h4>Preparaciones automáticas</h4>
-                    <p>Si el estudio necesita ayuno o vejiga llena, le aparece la indicación apenas lo selecciona.</p>
+                    <h4>Indicaciones automáticas</h4>
+                    <p>Si el turno necesita alguna indicación previa —ayuno, traer algo, llegar 10 minutos antes— aparece apenas lo selecciona.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📱</div>
                     <h4>100% responsive</h4>
-                    <p>Funciona perfecto desde el celular, que es donde el 90% de los pacientes va a reservar.</p>
+                    <p>Funciona perfecto desde el celular, que es donde el 90% de los clientes va a reservar.</p>
                 </div>
             </div>
         </div>
@@ -1037,54 +1074,54 @@
     <section class="features-admin">
         <div class="container">
             <div class="section-eyebrow">Para vos y tu equipo</div>
-            <h2 class="section-title">Un panel que tu secretaria va a amar.</h2>
+            <h2 class="section-title">Un panel que tu equipo va a amar.</h2>
             <p class="section-lead">Todo lo que pasa en tu agenda, en una pantalla. Y sin lecciones de informática.</p>
 
             <div class="features-grid">
                 <div class="feature">
                     <div class="feature-icon">👀</div>
                     <h4>Vista completa de turnos</h4>
-                    <p>Filtros por fecha, estado, ubicación o paciente. Encontrás cualquier turno en 2 clics.</p>
+                    <p>Filtros por fecha, estado, ubicación o cliente. Encontrás cualquier turno en 2 clics.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">➕</div>
                     <h4>Asignar turno manual</h4>
-                    <p>Para los pacientes de toda la vida que llaman por teléfono. Y permite sobre-turnar cuando hace falta.</p>
+                    <p>Para los clientes de toda la vida que llaman por teléfono. Y permite sobre-turnar cuando hace falta.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">🚫</div>
                     <h4>Días no disponibles</h4>
-                    <p>Bloqueá una fecha por emergencia, congreso o feriado. Los pacientes ya no la ven.</p>
+                    <p>Bloqueá una fecha por feriado, mantenimiento o imprevisto. Los clientes ya no la ven.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📥</div>
                     <h4>Export a Excel</h4>
-                    <p>Bajás la planilla completa con un clic. Para tu contador, tu obra social o tu prepaga.</p>
+                    <p>Bajás la planilla completa con un clic. Para tu contador o quien lo necesite.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">✅</div>
                     <h4>Estados que importan</h4>
-                    <p>Marcá si enviaste el recordatorio, si autorizaste el estudio y si recibiste el pago. Todo trazado.</p>
+                    <p>Marcá si enviaste el recordatorio, si confirmaste el servicio y si recibiste el pago. Todo trazado.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">👥</div>
                     <h4>Multi-usuario con roles</h4>
-                    <p>Tu cuenta master crea usuarios para las secretarias. Cada una con su contraseña; vos las administrás.</p>
+                    <p>Tu cuenta master crea usuarios para tu equipo. Cada uno con su contraseña; vos los administrás.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">💬</div>
                     <h4>WhatsApp en un clic</h4>
-                    <p>Desde la fila del turno se abre WhatsApp con el número del paciente. Sin copiar y pegar.</p>
+                    <p>Desde la fila del turno se abre WhatsApp con el número del cliente. Sin copiar y pegar.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📄</div>
-                    <h4>Pedido médico al toque</h4>
-                    <p>El PDF que subió el paciente se abre en una pestaña nueva. No más mails perdidos.</p>
+                    <h4>Archivos adjuntos al toque</h4>
+                    <p>Lo que subió el cliente se abre en una pestaña nueva. No más mails perdidos.</p>
                 </div>
                 <div class="feature">
                     <div class="feature-icon">📊</div>
                     <h4>Estadísticas de un vistazo</h4>
-                    <p>Turnos del día, activos, cancelados, completados, obra social top. Para tomar decisiones.</p>
+                    <p>Turnos del día, activos, cancelados, completados, categoría top. Para tomar decisiones.</p>
                 </div>
             </div>
         </div>
@@ -1117,62 +1154,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ============== COMPARATIVA ============== -->
-    <section id="comparativa" class="comparativa">
-        <div class="container">
-            <div class="section-eyebrow">Sí, lo comparamos</div>
-            <h2 class="section-title">Turnio vs. Docturno (el más conocido del mercado).</h2>
-            <p class="section-lead">No es que Docturno esté mal: simplemente está pensado para todos al mismo tiempo. Turnio se piensa para vos.</p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Docturno (plan básico)</th>
-                        <th class="highlight">Turnio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Precio mensual</td>
-                        <td>$30.250</td>
-                        <td class="highlight"><strong>$20.999</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Tu logo, tus colores y tu tipografía</td>
-                        <td class="cell-no">Limitado</td>
-                        <td class="cell-yes highlight">Sin restricciones</td>
-                    </tr>
-                    <tr>
-                        <td>Reglas de agenda por consultorio</td>
-                        <td class="cell-no">Estándar</td>
-                        <td class="cell-yes highlight">A medida</td>
-                    </tr>
-                    <tr>
-                        <td>Slots correlativos automáticos</td>
-                        <td class="cell-no">No</td>
-                        <td class="cell-yes highlight">Sí</td>
-                    </tr>
-                    <tr>
-                        <td>Pedido médico adjunto desde la reserva</td>
-                        <td class="cell-no">No</td>
-                        <td class="cell-yes highlight">Sí</td>
-                    </tr>
-                    <tr>
-                        <td>Funcionalidades nuevas a pedido</td>
-                        <td class="cell-no">No</td>
-                        <td class="cell-yes highlight">Sí, presupuesto aparte</td>
-                    </tr>
-                    <tr>
-                        <td>Soporte directo con quien lo desarrolla</td>
-                        <td class="cell-no">No</td>
-                        <td class="cell-yes highlight">Sí</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="caso-nota">
+                <strong>La misma lógica sirve para cualquier rubro con turnos.</strong> Cambian los campos —una obra social, una cancha, un servicio de peluquería— pero el motor es el mismo: agenda sin huecos, reservas sin llamados y un panel que tu equipo entiende en el momento.
+            </div>
         </div>
     </section>
 
@@ -1194,8 +1178,7 @@
             </div>
 
             <div class="demo-helper">
-                ¿Querés ver el sistema real en producción? Está acá:
-                <!-- TODO: reemplazar por la URL real del sistema de Dra. Gigón cuando esté en vivo -->
+                ¿Querés ver el sistema real funcionando en producción? Así lo usa hoy la Dra. Romina Gigón (ecografías) — el mismo motor se adapta a cualquier rubro:
                 <a href="https://drarominagigon.com/" target="_blank">turnos de Dra. Romina Gigón</a>
             </div>
         </div>
@@ -1205,32 +1188,43 @@
     <section id="precio" class="precio">
         <div class="container">
             <div class="section-eyebrow">Precio honesto</div>
-            <h2 class="section-title">Un único plan. Todo incluido. Sin letra chica.</h2>
-            <p class="section-lead">Lo que ves es lo que pagás. Sin tier "premium", sin "contactar a ventas", sin sorpresas.</p>
+            <h2 class="section-title">Elegí tu plan. Sin letra chica.</h2>
+            <p class="section-lead">Arrancás con el sistema base ya funcionando y sumás personalización completa si tu negocio lo necesita.</p>
 
-            <div class="precio-card">
-                <div>
-                    <div class="precio-badge">Plan único</div>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div class="precio-badge">Plan Base</div>
                     <h3>Turnio</h3>
-                    <div class="precio-amount">$20.999 <small>/ mes</small></div>
-                    <div class="precio-vs">vs <s>$30.250</s> que cobra Docturno</div>
-                    <p style="color:#c7cbe0;font-size:0.95em;margin-bottom:24px;">
-                        Sistema completo con tu marca, soporte directo conmigo y hosting incluido. Implementación inicial sin costo adicional.
-                    </p>
-                    <a href="https://wa.me/543492276388?text=Hola%20Fabri,%20quiero%20arrancar%20con%20Turnio" target="_blank" class="btn btn-primary" style="width:100%;">Quiero el mío →</a>
-                </div>
-                <div>
+                    <p class="plan-desc">El sistema funcionando con tu marca desde el día uno.</p>
+                    <div class="precio-amount">$44.999 <small>/ mes</small></div>
                     <ul class="precio-incluye">
-                        <li>Personalización de paleta de colores</li>
-                        <li>Logo y tipografía a tu medida</li>
+                        <li>Sistema de reservas con tu logo y colores</li>
                         <li>Reglas de agenda configuradas con vos</li>
-                        <li>Catálogo de prácticas y obras sociales</li>
+                        <li>Catálogo de servicios o prácticas</li>
                         <li>Panel de administración multi-usuario</li>
                         <li>Email de confirmación y recordatorio</li>
                         <li>Export a Excel y estadísticas</li>
                         <li>Hosting y dominio configurados</li>
-                        <li>Soporte directo por WhatsApp</li>
+                        <li>Soporte por WhatsApp</li>
                     </ul>
+                    <a href="https://wa.me/543492276388?text=Hola%20Fabri,%20quiero%20el%20plan%20base%20de%20Turnio" target="_blank" class="btn btn-primary">Quiero el plan base →</a>
+                </div>
+                <div class="plan-card destacado">
+                    <div class="plan-ribbon">Recomendado</div>
+                    <div class="precio-badge">Plan Personalización</div>
+                    <h3>Turnio a medida</h3>
+                    <p class="plan-desc">Todo el plan base, adaptado 100% a tu rubro y tu marca.</p>
+                    <div class="precio-amount">$84.999 <small>/ mes</small></div>
+                    <ul class="precio-incluye">
+                        <li>Todo lo del Plan Base</li>
+                        <li>Diseño 100% a tu marca: paleta, tipografía y textos</li>
+                        <li>Campos y flujos ajustados a tu rubro específico</li>
+                        <li>Pago con reglas de precio por categoría o tipo de cliente</li>
+                        <li>Adjuntos e indicaciones automáticas configuradas</li>
+                        <li>Funcionalidades a pedido el primer mes, sin costo extra</li>
+                        <li>Soporte prioritario</li>
+                    </ul>
+                    <a href="https://wa.me/543492276388?text=Hola%20Fabri,%20quiero%20el%20plan%20de%20personalizaci%C3%B3n%20de%20Turnio" target="_blank" class="btn btn-primary">Quiero personalización →</a>
                 </div>
             </div>
         </div>
@@ -1239,9 +1233,9 @@
     <!-- ============== EXTRAS ============== -->
     <section class="extras">
         <div class="container">
-            <h3>¿Necesitás algo específico de tu rubro?</h3>
+            <h3>¿Necesitás algo aún más específico?</h3>
             <p>
-                Integración con tu HCE, agenda quirúrgica, historial clínico, recetas digitales, lo que sea. Lo cotizamos aparte sobre el plan base, sin sorpresas y con presupuesto cerrado antes de empezar.
+                Integración con tus sistemas actuales, funcionalidades muy puntuales de tu rubro, lo que sea. Se cotiza aparte del plan de personalización, con presupuesto cerrado antes de empezar.
             </p>
             <a href="https://wa.me/543492276388?text=Hola%20Fabri,%20quiero%20cotizar%20una%20funcionalidad%20extra" target="_blank" class="btn btn-dark">Cotizá tu función extra</a>
         </div>
@@ -1255,7 +1249,6 @@
 
             <div class="contacto-grid">
                 <a href="https://wa.me/543492276388?text=Hola%20Fabri,%20quiero%20info%20sobre%20Turnio" target="_blank" class="btn btn-wa">💬 WhatsApp 3492 276388</a>
-                <a href="mailto:gfabrivelazquez@gmail.com?subject=Consulta%20por%20Turnio" class="btn btn-ghost" style="background:transparent;color:white;border-color:rgba(255,255,255,0.2);">✉ gfabrivelazquez@gmail.com</a>
             </div>
 
             <div class="contacto-meta">
@@ -1268,7 +1261,7 @@
     <footer>
         <div class="container">
             <div class="brand"><span class="brand-dot"></span>Turnio</div>
-            <div>© 2026 · Sistema de turnos a medida para profesionales de la salud</div>
+            <div>© 2026 · Sistema de turnos a medida para cualquier negocio con reservas</div>
         </div>
     </footer>
 
